@@ -8,7 +8,7 @@ author: "Nick Hafen, BYU Law"
 
 ![](qr.svg){.qr fig-alt="QR code linking to this page"}
 
-**bit.ly/…** *(link coming)*
+**[bit.ly/cle-word](https://bit.ly/cle-word)**
 
 [⬇ Practice file (.docx)](https://nickhafen.github.io/word-for-lawyers/files/RocketDrop-Motion-DEMO.docx){.share-link}
 
