@@ -1,0 +1,7 @@
+# Quarto build output and cache
+/_output/
+/.quarto/
+
+# Word lock/temp files
+~$*
+*.tmp

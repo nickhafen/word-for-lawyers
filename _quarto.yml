@@ -1,0 +1,35 @@
+project:
+  type: default
+  output-dir: _output/attendee
+  render:
+    - index.qmd
+  resources:
+    - files/
+
+profile:
+  default: attendee
+
+filters:
+  - mac-spans.lua
+
+subtitle: "Utah Bankruptcy Lawyers Forum · October 6, 2026"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-location: left
+    toc-depth: 2
+    toc-title: "Sections"
+    embed-resources: true
+    code-copy: true
+    include-after-body: page-tools.html
+    format-links: false
+  typst:
+    papersize: us-letter
+    margin:
+      x: 0.8in
+      y: 0.7in
+    fontsize: 10pt
+    toc: false

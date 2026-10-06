@@ -1,0 +1,79 @@
+/* Keyboard keys: `Ctrl`, `Shift`, `F9` ... */
+code.key {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.85em;
+  color: inherit;
+  background: #f6f7f9;
+  border: 1px solid #c9ced6;
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 0.05em 0.4em;
+  white-space: nowrap;
+}
+
+/* Copyable inline code (wildcard patterns, file names, codes) */
+code.copyable {
+  cursor: pointer;
+  border: 1px dashed transparent;
+  border-radius: 4px;
+  transition: border-color .15s, background-color .15s;
+}
+code.copyable:hover { border-color: #7aa7d9; }
+code.copyable.copied { background: #d9f2df; border-color: #3c9a55; }
+code.copyable.copied::after {
+  content: " ✓ copied";
+  font-family: system-ui, sans-serif;
+  font-size: .8em;
+  color: #2b7a40;
+}
+
+/* Long copyable strings (URLs, patterns) wrap instead of overflowing */
+code.copyable { overflow-wrap: anywhere; }
+
+/* QR code + short link: top of the page, and pinned under the TOC */
+#share-box, #share-box-sidebar {
+  border: 1px solid #c9ced6;
+  border-radius: 8px;
+  padding: .6rem .75rem;
+  text-align: center;
+  font-size: .85rem;
+  background: #fff;
+}
+#share-box p, #share-box-sidebar p { margin: .25rem 0; }
+#share-box img, #share-box-sidebar img { width: 120px; max-width: 120px; height: auto; }
+#share-box .figure, #share-box-sidebar .figure,
+#share-box figure, #share-box-sidebar figure { margin: .25rem 0; }
+#share-box .share-link, #share-box-sidebar .share-link { display: inline-block; }
+#share-box { max-width: 220px; margin: 0 0 1.25rem; }
+#share-box-sidebar { position: sticky; bottom: 0; margin-top: 1rem; }
+.qr-placeholder {
+  display: inline-block;
+  width: 120px; height: 120px; line-height: 120px;
+  border: 2px dashed #c9ced6; color: #888; font-size: .75rem;
+}
+@media (min-width: 992px) {
+  body.has-sidebar-share #share-box { display: none; }
+}
+
+/* Show/hide Mac steps */
+.mac-toggle {
+  display: inline-block;
+  margin: .25rem 0 1.25rem;
+  padding: .3rem .9rem;
+  border: 1px solid #c9ced6;
+  border-radius: 999px;
+  background: #fff;
+  font-size: .9rem;
+  cursor: pointer;
+}
+.mac-toggle[aria-pressed="true"] { background: #2780e3; border-color: #2780e3; color: #fff; }
+
+body:not(.show-mac) .mac { display: none; }
+
+/* Presenter callouts stand out from page content */
+.callout-note, .callout-important { font-size: .92rem; }
+
+@media print {
+  .mac-toggle, #quarto-margin-sidebar, #TOC { display: none !important; }
+  code.copyable.copied::after { content: none; }
+}

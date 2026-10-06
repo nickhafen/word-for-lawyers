@@ -1,0 +1,5 @@
+# Presenter version: shows run of show, notes, and demo requirements.
+project:
+  output-dir: _output/presenter
+
+subtitle: "PRESENTER VERSION · Utah Bankruptcy Lawyers Forum · October 6, 2026"

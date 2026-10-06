@@ -1,0 +1,691 @@
+---
+title: "Getting More from Microsoft Word in Legal Practice"
+author: "Nick Hafen, BYU Law"
+---
+
+::: {#share-box}
+**Follow along at**
+
+![](qr.svg){.qr fig-alt="QR code linking to this page"}
+
+**bit.ly/…** *(link coming)*
+
+[⬇ Practice file (.docx)](https://nickhafen.github.io/word-for-lawyers/files/RocketDrop-Motion-DEMO.docx){.share-link}
+
+[⬇ PDF handout](https://nickhafen.github.io/word-for-lawyers/index.pdf){.share-link}
+:::
+
+:::: {.content-visible when-profile="presenter"}
+::: {.callout-important icon="false" title="🎤 Run of show (60 min = ~50 min demo + 10 min Q&A)"}
+| \#  | Section                                | Min | Mode    |
+|-----|----------------------------------------|----:|---------|
+| 0   | Welcome + the big idea                 |   2 | Mention |
+| 1   | What is a Word file?                   |   2 | Demo    |
+| 2   | See what's really there                |   3 | Demo    |
+| 3   | Styles                                 |   8 | Demo    |
+| 4   | Sections, headers & footers            |   6 | Demo    |
+| 5   | Security & filing                      |   7 | Demo    |
+| 6   | Clean up: Find & Replace and wildcards |   5 | Demo    |
+| 7   | Numbering & cross-references           |   7 | Demo    |
+| 8   | Quick Parts: reuse text, type once     |   7 | Demo    |
+| 9   | Make Word yours                        |   3 | Mention |
+|     | Extras                                 |   0 | Handout |
+|     | Q&A                                    |  10 |         |
+
+**Cut first if behind:** line numbers in 4, the Document Inspector category tour in 5 (just run it), Fields in 8, content controls in 9.
+
+**Mode tags:** *Demo* = do it live · *Mention* = say it, point at the page · *Handout* = on the page only.
+
+**Demo prep**
+
+- Demo file A (sections 1–7): `[DEMO] RocketDrop Motion for Relief from Stay` (Bankruptcy Templates folder).
+- Demo files B and C (section 8): the Bankruptcy Templates, plus Demo Files/C (01 with bound properties).
+- Save CHECKPOINT copies after Styles, Sections, Cleanup, Numbering, and Quick Parts.
+- Do the Security demo on a copy, so Document Inspector doesn't strip anything later sections need.
+- Put the practice files + checkpoints in the repo for follow-alongers.
+- Work through the [Mac verification checklist](#mac-verification-checklist) before publishing.
+- Zoom Word to \~150%+ and turn on Show/Hide ¶ before starting.
+- File → Options → Advanced → Field shading: Always.
+:::
+::::
+
+:::: {.content-visible when-profile="presenter"}
+::: {.callout-note icon="false" title="🎤 WELCOME + BIG IDEA (2 min) — MENTION"}
+- QR code + bit.ly on screen. No need to take notes; everything I click is on this page, with Windows and Mac paths, and the page has more than I'll show.
+- The big idea: "Don't try to memorize clicks today. Try to leave with a list of things you didn't know Word could do."
+- Every section starts with the problem it solves. Ask them to think of the last document where they had that problem.
+:::
+::::
+
+Lawyers spend significant time working in Microsoft Word, often with lengthy documents and files that have passed through multiple hands. This session covers Word features that make that work faster and more reliable: controlling formatting and numbering, cleaning up troublesome documents, reusing standard text, and securing documents for filing or sharing.
+
+**Follow along (optional):** download the [practice file](https://nickhafen.github.io/word-for-lawyers/files/RocketDrop-Motion-DEMO.docx) (a stay motion filed in the U.S. Bankruptcy Court for the District of Utah, with exhibit slip pages added) and work through the **Practice** boxes in each section, or just use this page as a reference later. This page covers more than we'll have time to demo.
+
+## The big idea: know what's possible
+
+There are usually several ways to do anything in Word: a ribbon button, a right-click menu, a keyboard shortcut, a dialog box. You don't need to memorize them. The most valuable thing to take away today is **knowing what's possible**. Once you know a feature exists, you can look up the steps or ask an AI tool when you need them.
+
+------------------------------------------------------------------------
+
+## 1. What is a Word file, really?
+
+:::: {.content-visible when-profile="presenter"}
+::: {.callout-note icon="false" title="🎤 WORD FILE (2 min) — DEMO"}
+- Live: copy the demo file, rename to .zip, open, show document.xml. Point at a `<w:pStyle>` tag and at docProps/core.xml (author / last modified by).
+- NOTE: \
+  Easiest: drag document.xml into Chrome; browsers display XML as an indented, collapsible tree automatically. \
+  VS Code: Alt+Shift+F (Format Document) (requires XML extension).
+- "This is what a Word document *actually* is. What we see in the visual editor captures most of that, but not all of it."
+:::
+::::
+
+**Why it matters:** What you see on screen isn't everything that's in the file. Comments, tracked changes, author names, and hidden formatting all travel with the document.
+
+A `.docx` file is a ZIP folder of XML files. Rename a copy from `.docx` to `.zip` and open it:
+
+- `word/document.xml` – the text
+- `word/styles.xml` – the style definitions
+- `word/comments.xml`, `docProps/core.xml` – comments, author, and other metadata
+
+When AI tools work with `.docx` files, they interact with the underlying code, not the visual editor. A well-structured document (real styles, real numbering) is easier for both people and AI tools to work with.
+
+------------------------------------------------------------------------
+
+## 2. See what's really there
+
+:::: {.content-visible when-profile="presenter"}
+::: {.callout-note icon="false" title="🎤 ORIENTATION (3 min) — DEMO"}
+- Start by adding Show/hide ¶ to the Quick Access Toolbar; it stays one click away for the rest of the session.
+- Show ¶ on the demo file: the tab before and after every typed number (`→1.→`), blank paragraphs used for spacing, the page break before the certificate of service.
+- Navigation pane is EMPTY because nothing uses a heading style.
+- Style Inspector and Reveal Formatting are in Extras; mention only.
+:::
+::::
+
+**Why it matters:** Inherited documents often look right but are built wrong (fake headings, typed numbers, formatting applied by hand). When a document misbehaves, the fix is usually obvious once you can see how it was built.
+
+| Tool | What it does | Windows | Mac |
+|------------------|------------------|------------------|------------------|
+| Show/hide ¶ | Shows paragraph marks, tabs, spaces, section breaks | `Ctrl`+`Shift`+`8` | `Cmd`+`8` |
+| Quick Access Toolbar | Keeps the tools you use most one click away (e.g., Show/hide ¶) | Right-click any button → *Add to Quick Access Toolbar*. If the toolbar is hidden: right-click the ribbon → *Show Quick Access Toolbar* | Word → Preferences → *Ribbon & Toolbar* → Quick Access Toolbar |
+| Navigation pane | Lists every heading (empty if no heading styles are used) | `Ctrl`+`F`, then *Headings* | View → Sidebar → Navigation |
+
+------------------------------------------------------------------------
+
+## 3. Styles
+
+:::: {.content-visible when-profile="presenter"}
+::: {.callout-note icon="false" title="🎤 STYLES (8 min) — DEMO"}
+- Style area in Draft view is the single best troubleshooting trick for inherited documents: every "heading" says Normal. Show it for 20 seconds.
+- Demo order (the [DEMO] motion):
+  1.  Open the Styles pane; show it highlights Normal for every "heading."
+  2.  Modify Title and apply it to the motion title in the caption (show Font → Advanced → spacing).
+  3.  Format MEMORANDUM → Update Heading 1 to Match Selection; apply to CERTIFICATE OF SERVICE.
+  4.  Click "I. Background" → Select All Text With Similar Formatting → Heading 2. All four roman-numeral headings at once; Navigation pane now populates. TEST beforehand what Select Similar grabs.
+  5.  Insert TOC before MEMORANDUM.
+- Run-in headings: MENTION (the [DEMO] motion doesn't have any).
+- Keep with next on headings = no orphaned headings at the bottom of a page.
+- If asked: styles travel with the document; to reuse them, save as a template (section 9) or Home → Styles → Manage Styles → Import/Export.
+:::
+::::
+
+**Why it matters:** If headings are just bold text, changing how they look means fixing every one by hand, and Word can't build a table of contents, number them, or show them in the Navigation pane. Styles tell Word *what* each paragraph is ("this is a heading"), not just how it looks, so one change updates every heading at once.
+
+**Styles pane** (`Ctrl`+`Alt`+`Shift`+`S`[(Mac: Home → Styles Pane)]{.mac}): lists every style and highlights the one the cursor is in. Check *Show Preview* to see what each style looks like.
+
+**Style area:** shows the style name of every paragraph in the left margin. File → Options → Advanced → Display → *Style area pane width* (e.g., 1"), then View → Draft[(Mac: Word → Preferences → View → *Style area width*, then View → Draft)]{.mac}.
+
+**Modify a style:** right-click the style in the gallery → *Modify*, or format one paragraph the way you want and right-click the style → *Update \[Style\] to Match Selection*.
+
+**Apply styles quickly:**
+
+- Select one bold heading → Home → Select → *Select All Text With Similar Formatting* → click the style
+- `Ctrl`+`Alt`+`1`/`2`/`3`[(Mac: `Cmd`+`Option`+`1`/`2`/`3`)]{.mac} applies Heading 1/2/3; `Ctrl`+`Shift`+`N`[(Mac: `Cmd`+`Shift`+`N`)]{.mac} applies Normal
+
+**Run-in headings (heading and body text in one paragraph):** put the cursor right after the heading text and insert a **style separator** (`Ctrl`+`Alt`+`Enter`). The heading gets the Heading style (and shows up in the TOC and Navigation pane); the text after it stays Normal.
+
+- [*Mac:* there is no style separator command. Workaround: end the heading as its own paragraph, select only its ¶ mark, and format it as Hidden (Format → Font → Hidden).]{.mac}
+
+**Table of contents:** References → Table of Contents. Update it with `F9`[(Mac: `Fn`+`F9`)]{.mac} or right-click → *Update Field*.
+
+::: {.callout-tip icon="false" title="Practice (with the [DEMO] motion)"}
+- **Title:** apply to the motion title in the caption. Set it to all caps, bold, character spacing expanded 1 pt (Font → Advanced), 12 pt space after.
+- **Heading 1:** apply to MEMORANDUM and CERTIFICATE OF SERVICE. Same as Title, plus underline and small caps; *Keep with next* (Paragraph → Line and Page Breaks).
+- **Heading 2:** apply to the bold roman-numeral headings (I. Background, II. Legal Standard, III. Argument, IV. Conclusion). In section 7 you'll link Heading 2 to a multilevel list (I., II., III.), with the numbered paragraphs (1., 2., 3.) as its next level in the Normal style.
+- **Normal:** justified; *Widow/Orphan control* on.
+- **Create a table of contents** right before MEMORANDUM.
+:::
+
+------------------------------------------------------------------------
+
+## 4. Sections, headers & footers
+
+:::: {.content-visible when-profile="presenter"}
+::: {.callout-note icon="false" title="🎤 SECTIONS (6 min) — DEMO"}
+- Show ¶ so the section breaks are visible. The [DEMO] motion already has two *continuous* section breaks around the service list: that's how it switches to two columns mid-page.
+- Most common confusion: editing a footer changes it everywhere → that's Link to Previous. Show the "Same as Previous" tag on the footer.
+- Do the header once (it's the same everywhere), then footers: Different First Page on the caption page, then unlink the slip-page section and delete its page number.
+- Line numbers: MENTION; cut if behind.
+:::
+::::
+
+**Why it matters:** Sometimes different parts of one document need different page setup: no page number on the caption page, two columns for a service list, no page numbers on exhibit slip pages, or a landscape page for a payment table. Section breaks divide a document into parts that can each have their own headers, footers, page numbering, columns, orientation, and margins.
+
+**Insert section breaks:** Layout → Breaks → *Section Breaks*. *Next Page* starts the new section on a new page; *Continuous* starts it on the same page (e.g., to switch to two columns for a service list).
+
+**Headers and footers** (double-click in the header/footer area; tools are on the *Header & Footer* tab):
+
+- **Link to Previous:** on = same as the prior section; turn it off to make this section different
+- **Different First Page:** e.g., no page number on page 1
+- **Restart numbering:** Page Number → *Format Page Numbers* → *Start at: 1*
+
+**Line numbers** (also a section setting): Layout → Line Numbers → *Restart Each Page*. Handy for negotiation calls ("page 3, line 12").
+
+::: {.callout-tip icon="false" title="Practice (with the [DEMO] motion)"}
+- **Section break before the exhibits:** with ¶ showing, delete the page break before EXHIBIT "A" and insert a *Next Page* section break in its place.
+- **Header on every page,** right-aligned, bold italic: *DRAFT – Attorney Work Product – Privileged and Confidential*
+- **Motion:** no page number on the first (caption) page.
+- **Exhibit slip pages:** no page numbers. In the slip pages' footer, turn off *Link to Previous*, then delete the page number.
+:::
+
+------------------------------------------------------------------------
+
+## 5. Security & filing
+
+:::: {.content-visible when-profile="presenter"}
+::: {.callout-note icon="false" title="🎤 SECURITY (7 min) — DEMO"}
+- Use a COPY of the demo file (Document Inspector removes things later sections need).
+- Run Document Inspector after adding a comment and a tracked change; show what it finds.
+- Category tour (cut if behind): use an "inspector demo" file with one planted item per category (see ideas below), and show each one in the unzipped file *before* inspecting.
+  - Custom XML: the hidden "settlement authority" note in customXml/item1.xml, invisible in Word.
+  - Hidden text: the paragraph that appears only with ¶ on.
+  - Document properties: author, company, and a custom "Client-Matter" property (File → Info → Properties → Advanced → Custom).
+  - Collapsed heading: a section folded closed that a reader can miss.
+  - Show what Inspector does NOT catch: white text on white, text under an image, and black "redaction" highlighting.
+- 9037 wildcard search: put a fake SSN in the demo file and find it. Just show it works; wildcards are explained in section 6.
+- Restrict Editing "allow only tracked changes" is great for sending drafts to a client or counterparty who forgets to turn on Track Changes.
+- PDF bookmarks: the styles from section 3 pay off in the filed PDF.
+:::
+::::
+
+**Why it matters:** Filed and shared documents can reveal more than you intend: an old client's name in the comments, the other side's edits in tracked changes, a full SSN in an exhibit, or "redacted" text that's only covered with black highlighting. These checks catch those problems before the document leaves your office.
+
+**Before a document leaves your office**
+
+- **Remove comments, tracked changes, and metadata:** File → Info → Check for Issues → *Inspect Document* (don't remove headers/footers unless you mean to).
+  - [*Mac:* Review → Protect Document → check *Remove personal information from this file on save*. Accept/reject changes and delete comments manually first.]{.mac}
+- **Check for personal identifiers** (Fed. R. Bankr. P. 9037) with wildcards (explained in section 6):
+  - Full SSNs: `[0-9]{3}-[0-9]{2}-[0-9]{4}`
+  - Long account numbers: `[0-9]{8,}`
+- **Check for unfilled placeholders:** `\[*\]`
+- **Highlighting text in black is not redaction.** Delete the text in Word before converting, or use a true redaction tool in your PDF software.
+
+**What Document Inspector looks for**
+
+| Category | What can be hiding there |
+|---|---|
+| Comments, revisions, versions | Internal discussion; the other side's (or your) earlier wording in tracked changes |
+| Document properties and personal information | Author, "last modified by," company, template path, custom properties like a client-matter number |
+| Custom XML data | Data stored inside the file but not shown on the page, added by document management systems, SharePoint, add-ins, or templates (e.g., matter numbers, workflow status) |
+| Headers, footers, watermarks | "DRAFT," "Privileged," old case numbers |
+| Invisible content | Objects (text boxes, shapes) formatted as invisible |
+| Hidden text | Text formatted as hidden: invisible on screen and in print unless ¶ is on |
+| Collapsed headings | Sections folded closed, which a reader can skip right past |
+| Embedded documents | A spreadsheet or document pasted in as an object, including the parts you can't see |
+
+Document Inspector doesn't catch everything: white text on a white background, or text covered by an image, still goes out with the file.
+
+**Control editing**
+
+- **Restrict Editing:** Review → Restrict Editing[(Mac: Review → Protect Document)]{.mac}: allow only tracked changes, only comments, or only filling in fields.
+- **Password to open:** File → Info → Protect Document → *Encrypt with Password*. (Lost passwords can't be recovered.)
+
+**Save as PDF for filing:** File → Save As → PDF → *Options* → check *Create bookmarks using: Headings*. Your heading styles become clickable PDF bookmarks.
+
+::: {.callout-tip icon="false" title="Practice (with a copy of the [DEMO] motion)"}
+- Add a comment and a tracked change, then run *Inspect Document* and remove *Comments, Revisions, Versions, and Annotations*.
+- Look at what *Document Properties and Personal Information* found before removing it.
+- Save as PDF with *Create bookmarks using: Headings* (after the Styles practice) and open the bookmarks panel in the PDF.
+:::
+
+------------------------------------------------------------------------
+
+## 6. Clean up: Find & Replace and wildcards
+
+:::: {.content-visible when-profile="presenter"}
+::: {.callout-note icon="false" title="🎤 CLEANUP + WILDCARDS (5 min) — DEMO"}
+- Demo the `^p^p` → `^p` replace (removes blank paragraphs used as spacing). Careful in the [DEMO] motion: the blank lines in the service list separate the addresses, so Replace All would mash them together. Good "Find Next first" moment.
+- Wildcards: start with \[\*\] on one of the BK templates. Every placeholder lights up (Find → Reading Highlight → Highlight All). Instant "is this ready to file?" check. Then the Section → § example.
+- Explain in plain terms: brackets = "one of these," braces = "how many," parentheses = "remember this part so I can reuse it."
+- "5." vs "\$5.": patterns follow rules; they can't use judgment. Good place to say "you can ask AI to write the pattern for you."
+:::
+::::
+
+**Why it matters:** Documents that pass through many hands pick up junk: pasted formatting, double spaces, blank lines used for spacing, inconsistent symbols. Fixing these one at a time takes hours; Find & Replace fixes them all at once.
+
+**Clear out inherited formatting**
+
+- `Ctrl`+`Space` removes manual character formatting[(Mac: `Ctrl`+`Space`)]{.mac}; `Ctrl`+`Q` removes manual paragraph formatting
+- Paste without formatting: right-click → Paste Options → *Keep Text Only*
+- **Format Painter** copies formatting from one place to another:
+  - Click once to apply it once; double-click to apply it repeatedly (`Esc` to stop)
+  - Keyboard: `Ctrl`+`Alt`+`C` copies formatting, `Ctrl`+`Alt`+`V` pastes it[(Mac: `Cmd`+`Shift`+`C` / `Cmd`+`Shift`+`V`)]{.mac}. *Older versions of Word use `Ctrl`+`Shift`+`C` / `Ctrl`+`Shift`+`V` instead.*
+
+**Find & Replace** (`Ctrl`+`H` → *More* → *Special* for the codes below)
+
+| Find       | Replace with | Fixes                            |
+|------------|--------------|----------------------------------|
+| `^p^p`     | `^p`         | Blank lines used as spacing      |
+| two spaces | one space    | Double spaces after periods      |
+| `^l`       | `^p`         | Manual line breaks (Shift+Enter) |
+
+**Wildcards: Find & Replace with patterns**
+
+Check *Use wildcards* to search for a *pattern* instead of exact text (e.g., "any 3 digits, a hyphen, 2 digits, a hyphen, 4 digits"). Word's wildcards are its own version of what programmers call "regular expressions."
+
+| Symbol | Means | Example | Matches |
+|------------------|------------------|------------------|------------------|
+| `[0-9]` | Any one character in the range | `[0-9]` | `7` |
+| `{n}` / `{n,}` | Exactly *n* of the previous item; add the comma to search for *n* or more | `[0-9]{3}` | `362` |
+| `?` | Any one character | `s?t` | `sat`, `set` |
+| `*` | Any run of characters | `\[*\]` | `[DEBTOR NAME]` |
+| `\` | Treat the next symbol literally | `\[` | `[` |
+| `<` / `>` | Start / end of a word | `<debt` | `debtor`, not `indebted` |
+| `( )` + `\1` | Group part of the match, reuse it in the replacement | Find `Section ([0-9]{3})` → Replace `§^s\1` | `Section 362` → `§ 362` |
+
+**Useful patterns**
+
+- Unfilled template placeholders: `\[*\]`
+- Typed paragraph numbers, including roman numerals (a tab, the number, a period, a tab): `^t[0-9IVX]{1,}.^t`
+- Full SSNs: `[0-9]{3}-[0-9]{2}-[0-9]{4}`
+
+**Tips:** use *Find Next* a few times before *Replace All*. Patterns match what you describe, not what you mean ("5." could be a paragraph number or the end of "\$5."). You don't need to memorize the syntax: describe what you want to an AI tool and ask for a Word wildcard pattern, then test it.
+
+::: {.callout-tip icon="false" title="Practice"}
+- In the [DEMO] motion, find every typed paragraph number with `^t[0-9IVX]{1,}.^t` (use *Find Next* only; you'll remove them in section 7).
+- In any of the bankruptcy templates, find every unfilled placeholder with `\[*\]` (Find → *Reading Highlight* → *Highlight All*).
+:::
+
+------------------------------------------------------------------------
+
+## 7. Numbering & cross-references
+
+:::: {.content-visible when-profile="presenter"}
+::: {.callout-note icon="false" title="🎤 NUMBERING (7 min) — DEMO"}
+- Order matters: strip typed numbers BEFORE applying the list, or you'll see "1. 1. In June 2024…".
+- Paragraph numbers in the [DEMO] motion run 1–15 straight through all four headings, which is why level 2 must NOT restart after level 1.
+- Live payoff: in the Navigation pane, drag "II. Legal Standard" above "I. Background." Headings and paragraph numbers all renumber; Ctrl+A, F9 → the "Part III" cross-reference in the Conclusion updates. Undo afterward.
+- TEST: whether the Heading number cross-reference brings the trailing period ("III.") with it; if so, put it at the end of a sentence or use *Paragraph number (no context)*.
+- BK tie-in: plans and disclosure statements with hundreds of internal references; a late-added definition shouldn't mean a manual renumber.
+- If behind: open the checkpoint after step 2 and just do the cross-ref + drag.
+:::
+::::
+
+**Why it matters:** Typed numbers ("1.", "(a)") and typed references ("see Part III") don't update when you add, delete, or move a paragraph, so one late insertion means renumbering by hand and hoping you caught every reference. Numbering linked to heading styles, and cross-references that point to it, update themselves.
+
+1.  **Remove the typed numbers.** Replace (`Ctrl`+`H`) → *Use wildcards* → Find `^t[0-9IVX]{1,}.^t`, Replace with nothing. (See section 6 for how this pattern works.)
+2.  **Link numbering to your heading styles.** Home → Multilevel List → *Define New Multilevel List* → More.
+    - Level 1 → *Link level to style:* Heading 2 → number style *I, II, III* → format `I.`
+    - Level 2 → no linked style → number style *1, 2, 3* → format `1.` → uncheck *Restart list after* so paragraph numbers keep counting through each heading
+    - Apply the list to the numbered paragraphs, then press `Tab` (or Home → Multilevel List → *Change List Level*) to make them level 2.
+3.  **Replace hard-coded references.** References → *Cross-reference* → Reference type: *Heading* (or *Numbered item*) → Insert reference to: *Heading number*. Check *Insert as hyperlink* to make it clickable (it stays clickable in the PDF).
+4.  **Move sections around** by dragging headings in the Navigation pane. Then select all (`Ctrl`+`A`) and press `F9` to update cross-references.
+    - `Alt`+`F9`[(Mac: `Option`+`Fn`+`F9`)]{.mac} toggles field codes so you can see which numbers are live.
+
+::: {.callout-tip icon="false" title="Practice (with the [DEMO] motion, after the Styles practice)"}
+- Remove the typed numbers (step 1) and set up the two-level list (step 2): I., II., III. for the headings; 1., 2., 3. for the paragraphs, counting straight through.
+- In the Conclusion (¶ 15), add "for the reasons stated in Part " and insert a cross-reference to the heading number of *III. Argument*.
+- In the Navigation pane, drag *II. Legal Standard* above *I. Background*, press `Ctrl`+`A`, `F9`, and watch every number and the reference update. Then undo.
+:::
+
+------------------------------------------------------------------------
+
+## 8. Quick Parts: reuse text, type once
+
+:::: {.content-visible when-profile="presenter"}
+::: {.callout-note icon="false" title="🎤 QUICK PARTS (7 min) — DEMO"}
+- Demo order: (1) save the Certificate of Service page from the [DEMO] motion as a building block (category "Filings"); (2) open a blank document and insert it from the gallery and by typing its name + F3; (3) finale: Demo Files/C.
+- Finale: open Demo Files/C (01 with 16 placeholders bound; cyan = bound, yellow = plain text). Type "Motion" in any \[Motion/Application/Objection\] → all 5 update, including the ALL-CAPS one. Then the judge (3×) and the objection deadline (3×).
+- Built-in properties available: Title, Subject, Author, Manager, Company, Category, Keywords, Comments, Status, Publish Date, Company Address/ Phone/Fax/E-mail, Abstract. Mapping in file C (hover a control to see its label): Title = short name (Motion), Subject = full title of pleading, Status = objection deadline, Category = case number, Keywords = chapter, Manager = judge, Company = debtor name. MENTION that it's a repurposing; custom properties + DOCPROPERTY fields are the "proper" route but need F9.
+- Also show: File → Info → Properties shows the same values (it's one value stored in the file, displayed in many places).
+- Point out: templates have yellow-highlighted \[placeholders\] as plain text, which is why the \[\*\] search in section 6 is useful.
+- Sharing: save building blocks into a firm .dotx, not Normal.dotm.
+- TEST: run Document Inspector on the property-bound demo copy and see what happens to the bound text before saying anything definitive.
+- Fields: MENTION; cut if behind (Alt+F9 on the footer shows { PAGE }).
+:::
+::::
+
+**Why it matters:** The same caption, signature block, certificate of service, and standard paragraphs appear in nearly every filing. Retyping or copying them from an old filing is slow and is how the wrong judge, case number, or Zoom passcode ends up in a new document. Quick Parts let you save a block once and insert it anywhere, and document properties let you type a detail once and have it fill in everywhere it appears.
+
+**Building blocks (save once, insert anywhere)**
+
+- **Save:** select the text → Insert → Quick Parts → *Save Selection to Quick Part Gallery* (`Alt`+`F3`). Give it a name and, optionally, a category (e.g., *Captions*, *Zoom – Judges*).
+- **Insert:** Insert → Quick Parts → click the entry, or type its name and press `F3`.
+- **Edit or delete:** Insert → Quick Parts → *Building Blocks Organizer*.
+- **Where they're saved:** by default, your personal *Normal.dotm* or *Building Blocks.dotx*, so only you have them. To share with your office, choose a firm template (.dotx) in the *Save in* box.
+- [*Mac:* Insert → AutoText (verify).]{.mac}
+
+**Good candidates from Utah bankruptcy filings**
+
+| Building block | Why it's a good candidate |
+|------------------------------------|------------------------------------|
+| Signature block (*DATED* / firm / */s/* / *Attorney for*) | On every filing; short, so an easy first one |
+| Caption (attorney block, court heading, *In re* table) | Long and fussy to retype; the table comes through intact |
+| Certificate of service | A building block can be an entire page |
+| Zoom hearing paragraph, one per judge | Pick the judge from the gallery; meeting ID and passcode come with it |
+| Court mailing address | Appears in several notices |
+| Standard paragraphs: *YOUR RIGHTS MAY BE AFFECTED*; jurisdiction and venue | Language that shouldn't vary |
+
+**Document properties (type once, update everywhere)**
+
+- Insert → Quick Parts → *Document Property* → choose a property (e.g., *Title*). Insert the same property everywhere that detail appears.
+- Edit any one of them and every copy updates immediately.
+- Example: in the LF 9013-2 notice, *\[Motion/Application/Objection\]* appears five times. Bind each one to the *Title* property and change it once.
+- Properties can go inside a building block, so a saved caption can pick up the debtor name, case number, and chapter automatically.
+- Document properties are metadata. Removing document properties with Document Inspector (section 5) may affect them; check the text before filing.
+
+**Fields** (dynamic text Word calculates): Insert → Quick Parts → *Field* → e.g., `PAGE`, `DATE`, `NUMPAGES`. This is where footer page numbers come from.
+
+::: {.callout-tip icon="false" title="Practice"}
+- In the [DEMO] motion, select the whole Certificate of Service page and save it as a building block (`Alt`+`F3`) in a new category called *Filings*.
+- Open a blank document and insert it two ways: from Insert → Quick Parts, and by typing its name and pressing `F3`.
+:::
+
+------------------------------------------------------------------------
+
+## 9. Make Word yours
+
+:::: {.content-visible when-profile="presenter"}
+::: {.callout-note icon="false" title="🎤 MAKE WORD YOURS (3 min) — MENTION"}
+- Favorite tech tip: "Open the settings of every app you use daily and read every option once." Open File → Options and scroll Advanced for 15 seconds to show how much is there.
+- AutoCorrect § is fast and people love it; do it live if time allows.
+- Answers the open question from session 2: you don't need Save As to edit a template; open the .dotx itself.
+- Content controls, macros: HANDOUT. (Macros: View → Macros → Record; files must be .docm; many firms block them.)
+:::
+::::
+
+**Why it matters:** Word's defaults were chosen for everyone, not for lawyers. A few minutes in the settings saves time on every document from then on.
+
+**Best habit: explore the settings.** Every application has a settings screen full of features and default behaviors you can change. In Word, look through **File → Options**[(Mac: **Word → Preferences**)]{.mac}.
+
+**Settings worth a look**
+
+- **Advanced → Cut, copy, and paste:** set *Pasting from other programs* to *Keep Text Only* to stop importing other documents' formatting.
+- **Advanced → Show document content → Field shading: Always:** see which numbers and references are live fields.
+- **Advanced → Editing options → Keep track of formatting** and *Mark formatting inconsistencies*: Word underlines formatting that doesn't match nearby text.
+- **Proofing → AutoCorrect Options → AutoFormat As You Type:** turn off automatic numbered lists or automatic hyperlinks if they get in your way.
+
+**Shortcuts you create**
+
+- **AutoCorrect for § and ¶:** copy the symbol, then File → Options → Proofing → *AutoCorrect Options*. Replace `\s` with `§` and `\p` with `¶` (pick something you won't type by accident). Consider deleting the entries that turn `(c)` into ©, `(e)` into €, and `(r)` into ®, which can misfire in lists like "(c)" and "(e)". [*Mac:* Tools → AutoCorrect.]{.mac}
+- **Keyboard shortcuts for Accept/Reject Change:** File → Options → Customize Ribbon → *Keyboard shortcuts: Customize* → Review Tab → `AcceptChangesOrAdvance` / `RejectChangesOrAdvance`. [*Mac:* Tools → Customize Keyboard.]{.mac}
+
+**Templates**
+
+- **Save as a template (.dotx):** File → Save As → *Word Template*. Double-clicking a template creates a new document from it; to **edit the template itself**, open it from inside Word (File → Open) or right-click → *Open*.
+- **Content controls** for fill-in templates (date pickers, drop-downs, locked text): enable the Developer tab (File → Options → Customize Ribbon), then Developer → Controls. Combine with Restrict Editing → *Filling in forms*.
+
+------------------------------------------------------------------------
+
+## Extras
+
+:::: {.content-visible when-profile="presenter"}
+::: {.callout-note icon="false" title="🎤 EXTRAS — HANDOUT"}
+- Not demoed. Point at it: "There's more on the page than we covered."
+- Long-link demo (if used): copy the link from the Practice box, paste it into a justified paragraph, show the gap, add no-width optional breaks, then Ctrl+K to set clean display text over the tracked address.
+:::
+::::
+
+More features worth knowing that we won't have time to demo.
+
+### Style Inspector & Reveal Formatting
+
+**Why it matters:** When a paragraph doesn't look the way its style says it should, someone has added formatting on top of the style. These tools show exactly what was added, so you can remove it instead of guessing.
+
+| Tool | What it shows | Windows | Mac |
+|------------------|------------------|------------------|------------------|
+| Style Inspector | The paragraph style, the character style, and any manual formatting layered on top (e.g., "Normal, Plus: Bold"), with a button to clear each layer | Styles pane → *Style Inspector* button (bottom) | *(not available)* |
+| Reveal Formatting | Every formatting setting for the selected text; can compare two selections | `Shift`+`F1` | View → Reveal Formatting |
+
+### Hard spaces & hyphens
+
+**Why it matters:** Word breaks lines at spaces and hyphens, so "§" can end up alone at the end of a line with "362" on the next, or a case number like 24-25156 can split across two lines. A nonbreaking ("hard") space or hyphen looks the same but keeps both sides together.
+
+| Character | Use it for | Windows | Mac |
+|------------------|------------------|------------------|------------------|
+| Nonbreaking space | `§ 362`, `11 U.S.C.`, `p. 5` | `Ctrl`+`Shift`+`Space` | `Option`+`Space` |
+| Nonbreaking hyphen | Case numbers like `24-25156` | `Ctrl`+`Shift`+`-` | `Cmd`+`Shift`+`-` |
+
+In Find & Replace, `^s` is a nonbreaking space and `^~` is a nonbreaking hyphen, so you can fix a whole document at once (e.g., replace "§ " with `§^s`).
+
+### Links & long URLs
+
+**Why it matters:** Links in filings and emails should go where they say and shouldn't carry tracking data. And a long URL has no spaces, so Word can't break it and leaves a gaping line instead.
+
+**Hyperlinks** (`Ctrl`+`K`[(Mac: `Cmd`+`K`)]{.mac})
+
+- **Web page or file:** paste the address; the *Text to display* can be anything, so hover to check where a link actually goes.
+- **Place in this document:** link to a heading or bookmark (good for long briefs and tables of contents).
+- **Email address:** creates a `mailto:` link; can pre-fill the subject line.
+- **Cross-references** (section 7) with *Insert as hyperlink* checked are clickable internal links, including in the PDF.
+- **Tracking tags:** links copied from AI tools, search results, and social media often end with tags like `utm_source=chatgpt.com`. Anything starting with `utm_` tells the destination site where the click came from. Delete it before putting a link in a filing or email, but keep the rest of the address: some links need what follows the `?`.
+- Stop Word from turning typed web addresses into links: AutoCorrect Options → *AutoFormat As You Type* → uncheck *Internet and network paths with hyperlinks*.
+
+**Characters that let long words and URLs break**
+
+| Character | Use it for | Windows | Mac |
+|------------------|------------------|------------------|------------------|
+| Optional hyphen | Where a long word may hyphenate | `Ctrl`+`-` | `Cmd`+`-` |
+| No-width optional break | An invisible break point inside a long URL (no hyphen appears) | Insert → Symbol → More Symbols → *Special Characters*, or type `200b` then `Alt`+`X` | *(not in the menu; verify)* |
+
+::: {.callout-tip icon="false" title="Practice"}
+Click to copy this link to 11 U.S.C. § 362 (as an AI tool might hand it to you):
+
+`https://www.govinfo.gov/content/pkg/USCODE-2023-title11/html/USCODE-2023-title11-chap3-subchapIV-sec362.htm?utm_source=chatgpt.com`
+
+- Paste it into a justified paragraph in Word and look at the line above it.
+- Insert a few no-width optional breaks (after a `/` or `&`) and watch the line close up.
+- Press `Ctrl`+`K` and change *Text to display* to the address without `?utm_source=chatgpt.com`. Hover over the link: the address underneath still has the tracker.
+:::
+
+------------------------------------------------------------------------
+
+## Shortcut cheat sheet
+
+:::: {.content-visible when-profile="presenter"}
+::: {.callout-note icon="false" title="🎤 Presenter notes"}
+- Session 2 audience liked shortcuts; sprinkle these in live rather than presenting the table.
+:::
+::::
+
+| Action | Windows | Mac |
+|------------------------|------------------------|------------------------|
+| Show/hide ¶ | `Ctrl`+`Shift`+`8` | `Cmd`+`8` |
+| Styles pane | `Ctrl`+`Alt`+`Shift`+`S` |  |
+| Reveal Formatting | `Shift`+`F1` |  |
+| Heading 1 / 2 / 3 | `Ctrl`+`Alt`+`1` / `2` / `3` | `Cmd`+`Option`+`1` / `2` / `3` |
+| Normal style | `Ctrl`+`Shift`+`N` | `Cmd`+`Shift`+`N` |
+| Remove character formatting | `Ctrl`+`Space` | `Ctrl`+`Space` |
+| Remove paragraph formatting | `Ctrl`+`Q` |  |
+| Copy / paste formatting | `Ctrl`+`Alt`+`C` / `Ctrl`+`Alt`+`V`\* | `Cmd`+`Shift`+`C` / `Cmd`+`Shift`+`V` |
+| Style separator | `Ctrl`+`Alt`+`Enter` | *(not available)* |
+| Save selection as Quick Part | `Alt`+`F3` |  |
+| Insert Quick Part by name | type name, then `F3` |  |
+| Update field(s) | `F9` (`Ctrl`+`A` first for all) | `Fn`+`F9` |
+| Toggle field codes | `Alt`+`F9` | `Option`+`Fn`+`F9` |
+| Insert hyperlink | `Ctrl`+`K` | `Cmd`+`K` |
+| Find & Replace | `Ctrl`+`H` | `Ctrl`+`H` |
+| Repeat last action | `F4` or `Ctrl`+`Y` | `Cmd`+`Y` |
+| Change case | `Shift`+`F3` | `Fn`+`Shift`+`F3` |
+| Move paragraph up/down | `Alt`+`Shift`+`↑`/`↓` | `Ctrl`+`Shift`+`↑`/`↓` |
+| Nonbreaking space | `Ctrl`+`Shift`+`Space` | `Option`+`Space` |
+| Nonbreaking hyphen | `Ctrl`+`Shift`+`-` | `Cmd`+`Shift`+`-` |
+| Track Changes on/off | `Ctrl`+`Shift`+`E` | `Cmd`+`Shift`+`E` |
+| Insert comment | `Ctrl`+`Alt`+`M` | `Cmd`+`Option`+`A` |
+| Search Word's commands | `Alt`+`Q` |  |
+
+\* Older versions of Word use `Ctrl`+`Shift`+`C` / `Ctrl`+`Shift`+`V`.
+
+------------------------------------------------------------------------
+
+## Questions?
+
+:::: {.content-visible when-profile="presenter"}
+::: {.callout-note icon="false" title="🎤 Q&A (10 min)"}
+Contact info / follow-up link here.
+:::
+::::
+
+::: {.content-visible when-profile="presenter"}
+## Mac verification checklist {#mac-verification-checklist .unnumbered}
+
+*Presenter only.* Everything on the page that claims a Mac path, shortcut, or limitation. Fix or remove anything that doesn't hold up, then check it off.
+
+**§1 What is a Word file**
+
+- [ ] Renaming .docx → .zip in Finder and double-clicking to expand works.
+
+**§2 See what's really there**
+
+- [ ] Show/hide ¶: `Cmd`+`8`
+- [ ] Quick Access Toolbar: Word → Preferences → Ribbon & Toolbar → Quick Access Toolbar
+- [ ] Navigation pane: View → Sidebar → Navigation
+
+**§3 Styles**
+
+- [ ] Styles pane: Home → Styles Pane (and whether it has a shortcut for the cheat sheet)
+- [ ] Style area: Word → Preferences → View → Style area width, then View → Draft
+- [ ] Heading 1/2/3: `Cmd`+`Option`+`1`/`2`/`3`; Normal: `Cmd`+`Shift`+`N`
+- [ ] No style separator on Mac; the hidden-¶ workaround keeps the heading out of the body text and in the TOC
+- [ ] Update TOC/fields: `Fn`+`F9`
+- [ ] Select All Text With Similar Formatting exists on Mac
+
+**§4 Sections**
+
+- [ ] Section breaks, Link to Previous, Different First Page, Format Page Numbers all on the Mac Header & Footer tab
+- [ ] Line numbers path
+
+**§5 Security**
+
+- [ ] Review → Protect Document → *Remove personal information from this file on save* (and that Mac has no full Document Inspector)
+- [ ] Restrict Editing: Review → Protect Document
+- [ ] Password to open: path on Mac
+- [ ] Save as PDF: bookmarks from headings option exists
+
+**§6 Cleanup**
+
+- [ ] Remove character formatting: `Ctrl`+`Space`; remove paragraph formatting shortcut (cheat sheet blank)
+- [ ] Format Painter shortcuts: `Cmd`+`Shift`+`C` / `Cmd`+`Shift`+`V`
+- [ ] Find & Replace: `Ctrl`+`H`; *Use wildcards* and *Special* menu available in Advanced Find & Replace
+- [ ] `^p`, `^l`, `^t`, `^s`, `^~` codes work the same
+
+**§7 Numbering**
+
+- [ ] Define New Multilevel List: link level to style, uncheck *Restart list after*
+- [ ] Cross-reference dialog with *Insert as hyperlink*
+- [ ] Dragging headings in the Navigation pane reorders sections
+- [ ] Toggle field codes: `Option`+`Fn`+`F9`
+
+**§8 Quick Parts**
+
+- [ ] Building blocks / AutoText path (Insert → AutoText?), saving to a template, inserting by name
+- [ ] Document Property controls can be inserted on Mac
+- [ ] Demo Files/C: typing in one bound control updates the others on Mac
+
+**§9 Make Word yours**
+
+- [ ] Word → Preferences equivalents for: paste from other programs, field shading, mark formatting inconsistencies
+- [ ] AutoCorrect: Tools → AutoCorrect
+- [ ] Keyboard shortcuts: Tools → Customize Keyboard
+- [ ] Opening a .dotx to edit the template itself; Developer tab / content controls
+
+**Extras**
+
+- [ ] Style Inspector absent; Reveal Formatting: View → Reveal Formatting
+- [ ] Hyperlink: `Cmd`+`K`
+- [ ] Nonbreaking space `Option`+`Space`; nonbreaking hyphen `Cmd`+`Shift`+`-`; optional hyphen `Cmd`+`-`
+- [ ] No-width optional break: reachable via Insert → Advanced Symbol (Unicode 200B)?
+
+**Cheat sheet**
+
+- [ ] Repeat `Cmd`+`Y`; change case `Fn`+`Shift`+`F3`; move paragraph `Ctrl`+`Shift`+`↑`/`↓`; Track Changes `Cmd`+`Shift`+`E`; insert comment `Cmd`+`Option`+`A`
+- [ ] Fill in the blanks: Styles pane, Reveal Formatting, remove paragraph formatting, save Quick Part, insert Quick Part by name, search commands
+:::
+
+::: {.content-visible when-profile="presenter"}
+## Demo document requirements {#demo-document-requirements .unnumbered}
+
+*Presenter only.* What the demo files need to contain, by section. "HAVE" = an existing file already has it; everything else needs to be added or built.
+
+**Demo set:**
+
+- **A.** `[DEMO] RocketDrop Motion for Relief from Stay` → sections 1–7, Extras
+- **B.** BK templates (existing) → sections 6, 8
+- **C.** 01 with bound properties → section 8 finale. DONE.
+
+### GENERAL (all files)
+
+- [ ] Shareable: OK to post in the public repo. The [DEMO] motion is a real public filing, but the service list includes individuals' home addresses; consider replacing those with fictional ones before posting.
+- [ ] Author/company metadata set to something visible but harmless.
+
+### §1 WHAT IS A WORD FILE
+
+- [ ] At least one comment, so comments.xml has something to show. ADD to [DEMO] (it has no comments.xml yet).
+
+### §2 SEE WHAT'S REALLY THERE
+
+- [x] Fake headings: Normal + bold. HAVE (MEMORANDUM, I.–IV., CERTIFICATE OF SERVICE)
+- [x] Typed paragraph numbers with tabs. HAVE (`→1.→` … `→15.→`, `→I.→` … `→IV.→`)
+- [x] Blank paragraphs used for spacing. HAVE (signature block, service list)
+
+### §3 STYLES
+
+- [x] Title (motion title in the caption table). HAVE
+- [x] Two levels of fake headings. HAVE (MEMORANDUM / I.–IV.)
+- [x] Enough headings for a TOC. HAVE
+
+### §4 SECTIONS, HEADERS & FOOTERS
+
+- [x] Exhibit slip pages A–E at the end, separated by page breaks (practice: replace the first with a section break). DONE
+- [x] Existing continuous section breaks (two-column service list). HAVE
+- [ ] Optional: a wide table for a landscape section.
+
+### §5 SECURITY & FILING
+
+- [ ] A comment and a tracked change for Document Inspector. ADD (on the demo copy)
+- [ ] A fake full SSN (000-xx-xxxx or 9xx-xx-xxxx) and a long account number. ADD
+- [ ] Text "redacted" with black highlight (to show it's still there). ADD
+- [ ] Optional "inspector demo" file with one planted item per category (custom XML part, hidden text, custom property, collapsed heading, white text). ADD
+
+### §6 CLEANUP + WILDCARDS
+
+- [x] Typed numbers for `^t[0-9IVX]{1,}.^t`. HAVE
+- [x] \[Bracketed placeholders\] for the `\[*\]` search. HAVE (BK templates)
+- [ ] "Section 362" written out 3+ times for the Section → § replace. ADD ([DEMO] uses "§ 362")
+- [ ] Optional: pasted text with foreign formatting; double spaces.
+
+### §7 NUMBERING & CROSS-REFERENCES
+
+- [x] 15 typed paragraph numbers under 4 roman-numeral headings. HAVE
+- [ ] TEST: Heading number cross-reference to "III. Argument" in ¶ 15; check the trailing period.
+
+### §8 QUICK PARTS
+
+- [x] Certificate of service page to save live. HAVE ([DEMO])
+- [x] File C: 01 with 16 placeholders bound to built-in document properties. DONE (tested in Word)
+- [ ] A firm template (.dotx) to save building blocks into. ADD
+- [ ] Test Document Inspector on file C to see what happens to bound text.
+
+### EXTRAS (only if demoed)
+
+- [x] Long link ending in a ChatGPT tracker. DONE (click-to-copy in the Links Practice box)
+- [ ] TEST: how the long link wraps in a justified paragraph at the demo zoom level (it contains hyphens, where Word may break it).
+
+### CHECKPOINTS (save after each)
+
+- [ ] After §3 styles
+- [ ] After §4 sections
+- [ ] After §6 cleanup
+- [ ] After §7 numbering
+- [ ] After §8 quick parts
+:::

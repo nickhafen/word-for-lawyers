@@ -1,0 +1,72 @@
+<script>
+(function () {
+  // 1. Style keyboard keys; make all other inline code click-to-copy.
+  // Named keys are always keys; a single character (8, N, -) only counts
+  // as a key when joined to another key with "+" or "/".
+  var NAMED = /^(Ctrl|Shift|Alt|Cmd|Option|Fn|Enter|Space|Esc|Tab|F\d{1,2})$/;
+  var SINGLE = /^([A-Z0-9]|-|↑|↓|↑\/↓)$/;
+  function joined(c) {
+    var p = c.previousSibling, n = c.nextSibling;
+    return (p && p.nodeType === 3 && /[+\/]\s*$/.test(p.textContent)) ||
+           (n && n.nodeType === 3 && /^\s*[+\/]/.test(n.textContent));
+  }
+  document.querySelectorAll("main code").forEach(function (c) {
+    if (c.closest("pre")) return;
+    var text = c.textContent;
+    if (NAMED.test(text) || (SINGLE.test(text) && joined(c))) { c.classList.add("key"); return; }
+    c.classList.add("copyable");
+    c.title = "Click to copy";
+    c.addEventListener("click", function () {
+      navigator.clipboard.writeText(text).then(function () {
+        c.classList.add("copied");
+        setTimeout(function () { c.classList.remove("copied"); }, 1200);
+      });
+    });
+  });
+
+  // 2. Tag Mac table columns so they hide with the other Mac content.
+  document.querySelectorAll("main table").forEach(function (t) {
+    t.querySelectorAll("thead th").forEach(function (th, i) {
+      if (th.textContent.trim() !== "Mac") return;
+      t.querySelectorAll("tr").forEach(function (tr) {
+        if (tr.children[i]) tr.children[i].classList.add("mac");
+      });
+    });
+  });
+
+  // 3. A list item that is only a Mac note hides entirely, bullet included.
+  document.querySelectorAll("main li > span.mac:only-child, main li > p > span.mac:only-child")
+    .forEach(function (s) { s.closest("li").classList.add("mac"); });
+
+  // 5. Copy the QR / short-link box under the table of contents, where it
+  //    stays visible while scrolling. On narrow screens (no sidebar) the
+  //    original copy at the top of the page shows instead.
+  var share = document.getElementById("share-box");
+  var sidebar = document.getElementById("quarto-sidebar-toc-left") ||
+                document.querySelector("#TOC") && document.querySelector("#TOC").parentNode;
+  if (share && sidebar) {
+    var copy = share.cloneNode(true);
+    copy.id = "share-box-sidebar";
+    sidebar.appendChild(copy);
+    document.body.classList.add("has-sidebar-share");
+  }
+
+  // 4. One switch under the title: Mac steps hidden by default.
+  var show = false;
+  try { show = localStorage.getItem("show-mac") === "1"; } catch (e) {}
+  var btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "mac-toggle";
+  btn.addEventListener("click", function () { set(!show); });
+  function set(on) {
+    show = on;
+    document.body.classList.toggle("show-mac", on);
+    btn.setAttribute("aria-pressed", on ? "true" : "false");
+    btn.textContent = on ? "Hide Mac steps" : "Show Mac steps";
+    try { localStorage.setItem("show-mac", on ? "1" : "0"); } catch (e) {}
+  }
+  var header = document.querySelector("#title-block-header");
+  if (header) header.appendChild(btn);
+  set(show);
+})();
+</script>
